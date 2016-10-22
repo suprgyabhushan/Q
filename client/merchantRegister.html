@@ -1,0 +1,70 @@
+<template name="merchantRegister">
+    <div class="ui vertical center aligned segment">
+        <div class="ui stackable container grid">
+            <div class="row">
+                <div class="sixteen wide column">
+                    <br>
+                    <br>
+                    <br>
+                    <h1 class="ui header">Register</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="four wide column"></div>
+                <div class="eight wide column left aligned">
+                    <div class="ui form" id="register-form" action="action">
+                        <div class="row">
+                            <div class="twelve wide column left aligned">
+                                <div class="two fields">
+                                    <div class="field">
+                                        <label>Establishment Name</label>
+                                        <div class="ui input">
+                                            <input class="" type="text" placeholder="Establishment Name" id="name" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="two fields">
+                                  {{> ask}}
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="twelve wide column">
+                                <button class="ui blue large button" id="register-button" type="submit">Register</button>
+                                <div class="ui basic segment center aligned top">
+                                    <ul class="extra-links">
+                                        <li><a href="/login">Login? Click here</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="four wide column"></div>
+            </div>
+        </div>
+    </div>
+</template>
+<template name="ask">
+{{#each tablesArray}}
+    {{>table}}
+{{/each}}
+
+<form id="addItem">
+  <label for="name">Seating Capacity</label>
+  <input type="number" name="name" value="">
+  <input type="submit" value="Add tables">
+</form>
+</template>
+
+<template name="table">
+<div class="input-group pt10">
+    <label for="_{{name}}">No of table of seating Capacity {{name}}</label>
+    <input class="form-control answer" type="number" maxlength="30" placeholder="no of tables" name="_{{name}}" />
+    <span class="input-group-btn">
+        <button class="btn btn-danger delButton" id="{{name}}" data-id="{{name}}" type="button">Delete</button>
+    </span>
+</div>
+</template>
