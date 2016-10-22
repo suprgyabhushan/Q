@@ -2,12 +2,13 @@ import '../imports/api/merchants'
 import { Session } from 'meteor/session'
 import { _ } from 'meteor/underscore'
 import { Merchants } from '../imports/api/merchants.js';
+import { merchants } from '../imports/api/merchants.js';
 
 Template.merchantRegister.events({
   'click #register-button' (e) {
     e.preventDefault();
     const target = e.target;
-    const name = $('#name').val();
+    const ename = $('#name').val();
     var arr = [];
     _.each($('.answer'), function (item) {
         if ($(item).val() != '')
@@ -16,14 +17,27 @@ Template.merchantRegister.events({
             })
     });
     console.log(arr);
-    Merchants.insert({
+    Merchants.upsert(
+                ename,
+
+            {
+                // Modifier
+                $set: {
+                    Arr: arr,
+                    ename: ename,
+
+                }}
+        );
+    /*Merchants.insert({
       Arr: arr,
-      ename: name,
-    });
+      ename: ename,
+    });*/
     arr = [];
     target.name.value = '';
-
-    }
+    /*_.each(merchants, function(merchant){
+    Merchants.update({ename: merchant.ename}, {$set: merchant}, {upsert: true});
+  });*/
+  }
 });
 Template.ask.created = function () {
     Session.set('action', 'ask');
