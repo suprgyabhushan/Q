@@ -15,7 +15,7 @@ Template.login.events({
                 //     type: "error"
                 // });
             } else {
-                FlowRouter.go('/');
+                FlowRouter.go('/home');
             }
         });
         return false;

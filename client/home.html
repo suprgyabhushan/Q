@@ -21,5 +21,9 @@
         <input type="text" name="restaurant" placeholder="Type to add restaurant" />
       <center><input type="submit"></center>
     </form>
+
+    {{#each tasksUser}}
+      {{> task}}
+    {{/each}}
     {{/with}}
 </template>

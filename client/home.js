@@ -8,6 +8,18 @@ import { Tasks } from '../imports/api/tasks.js';
 //     return Tasks.find({});
 //   },
 // });
+import { ReactiveDict } from 'meteor/reactive-dict';
+
+Template.home.onCreated(function bodyOnCreated() {
+  this.state = new ReactiveDict();
+  Meteor.subscribe('tasksUser');
+});
+Template.home.helpers({
+  tasksUser() {
+    console.log(Tasks.find({}));
+    return Tasks.find({});
+  },
+});
 
 Template.home.events({
   'submit form' (e) {

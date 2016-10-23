@@ -1,19 +1,21 @@
 <template name="merchant">
+{{merchant.ename}}
   <form class = "new-task">
-    <input type="text" name="phone" placeholder="Registered Phone" />
+    <input type="text" name="name" placeholder="Name" />
+    <input type="text" name="phone" placeholder="Phone Number" />
     <input type="number" name="people" placeholder="Type to add number of guys!" />
     <center><input type="submit"></center>
   </form>
-<ul>
-    {{#each tasks}}
-      {{> task}}
-    {{/each}}
-</ul>
+  <ul>
+      {{#each tasksMerchant}}
+        {{> task}}
+      {{/each}}
+  </ul>
 </template>
 <template name="task">
   <li class="{{#if checked}}checked{{/if}}">
     <button class="delete">&times;</button>
     <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-    <span class="text"><strong>{{username}}</strong> - {{text}} {{time}} {{people}}</span>
+    <span class="text"><strong>{{name}}</strong> - {{phone}} | {{time}} |  {{people}}</span>
     </li>
 </template>

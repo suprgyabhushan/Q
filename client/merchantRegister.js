@@ -9,21 +9,20 @@ Template.merchantRegister.events({
     e.preventDefault();
     const target = e.target;
     const ename = $('#name').val();
-    var arr = [];
+    var tables = {};
     _.each($('.answer'), function (item) {
-        if ($(item).val() != '')
-            arr.push({
-                [$(item).attr("name")]: $(item).val(), //this you customize for your own purposes
-            })
+        if ($(item).val() != ''){
+          tables[$(item).attr("name")] = $(item).val(); //this you customize for your own purposes
+        }
     });
-    console.log(arr);
+    console.log(tables);
     Merchants.upsert(
                 ename,
 
             {
                 // Modifier
                 $set: {
-                    Arr: arr,
+                    tables: tables,
                     ename: ename,
 
                 }}
@@ -32,8 +31,9 @@ Template.merchantRegister.events({
       Arr: arr,
       ename: ename,
     });*/
-    arr = [];
+    tables = [];
     target.name.value = '';
+    FlowRouter.go('/merchant',null,{ename:ename});
     /*_.each(merchants, function(merchant){
     Merchants.update({ename: merchant.ename}, {$set: merchant}, {upsert: true});
   });*/

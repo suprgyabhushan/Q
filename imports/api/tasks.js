@@ -3,8 +3,11 @@ import { check } from 'meteor/check';
 export const Tasks = new Mongo.Collection('tasks');
 if (Meteor.isServer) {
   // This code only runs on the server
-  Meteor.publish('tasks', function tasksPublication() {
-    return Tasks.find();
+  Meteor.publish('tasksUser', function tasksPublication() {
+    return Tasks.find({owner: this.userId, checked: false});
+  });
+  Meteor.publish('tasksMerchant', function tasksPublication(merchId) {
+    return Tasks.find({restaurant: "Truffles", checked: false}, {sort: {createdAt: 1}});
   });
 }
 Meteor.methods({
@@ -23,24 +26,32 @@ Meteor.methods({
       restaurant: restaurant,
       createdAt: new Date(), // current time
       owner: Meteor.userId(),
-      name: Meteor.user().profile.firstName+Meteor.user().profile.lastName,
+      checked: false,
+      name: Meteor.user().profile.firstName + Meteor.user().profile.lastName,
     });
   },
-  'tasks.merchantInsert'(phone,people) {
-    check(phone, Number);
-    check(people, Number);
+  'tasks.merchantInsert'(name,phone,people) {
+    // check(phone, );
+    // check(people, Number);
     // Make sure the user is logged in before inserting a task
-    if (! this.userId) {
-      throw new Meteor.Error('not-authorized');
+    // if (! this.userId) {
+    //   throw new Meteor.Error('not-authorized');
+    // }
+    var owner = "none";
+    if(phone === "9916484397"){
+      name="GauravKoley";
+      owner="8KqDxtB7Bxg63nHMz";
     }
+
     Tasks.insert({
-      phone: Meteor.user().profile.phoneNumber,
-      time: slot,
+      phone: phone,
+      time: "none",
       people: people,
-      restaurant: restaurant,
+      restaurant: "Truffles",
       createdAt: new Date(), // current time
-      owner: Meteor.userId(),
-      name: Meteor.user().profile.firstName+Meteor.user().profile.lastName,
+      owner: owner,
+      checked: false,
+      name: name
     });
   },
   'tasks.remove'(taskId) {
